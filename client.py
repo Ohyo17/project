@@ -4,7 +4,7 @@ alias = input('Choose an alias >>> ')
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(('192.168.56.103', 8889))
 
-def rocks(x,y):           #function Rocks
+def rocks(x,y):           #function Rocks(x = move)(y = message)
 
     if(x == y):
        result = "It's Tie"
@@ -16,7 +16,7 @@ def rocks(x,y):           #function Rocks
        result = "Invalied move"
        return result
 
-def paper(x,y):          #function paper
+def paper(x,y):          #function paper(x = move)(y = message)
 
     if(x == y):
       result = "It's a Tie"
@@ -28,7 +28,7 @@ def paper(x,y):          #function paper
       result = "Invalid move"
       return result
 
-def scissor(x,y):        #function scissors
+def scissor(x,y):        #function scissors(x = move)(y = message)
 
      if(x == y):
        result = "It's a Tie"
@@ -61,7 +61,7 @@ def client_send():            #Apa yang kita nak send kat client lagi satu
         print(message)
 
         if(move == 'Rocks'):             #call function untuk hantar data kat function diorang untuk process result
-            result = rocks(move,message) # tapi tak pasti call function ni letak kat mana sepatutnya
+            result = rocks(move,message) #tapi tak pasti call function ni letak kat mana sepatutnya
             print(result)
         else:
             print("Invalid")
