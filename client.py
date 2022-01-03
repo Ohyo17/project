@@ -1,8 +1,7 @@
 import threading
 import socket
-alias = input('Choose an alias >>> ')
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('192.168.56.103', 8889))
+client.connect(('192.168.56.103', 8888))
 
 def rocks(x,y):           #function Rocks(x = move)(y = message)
 
@@ -13,7 +12,7 @@ def rocks(x,y):           #function Rocks(x = move)(y = message)
     elif(x == 'Rocks' and y == 'Paper'):
        result = "You lose"
     else:
-       result = "Invalied move"
+       result = "Invalid move"
        return result
 
 def paper(x,y):          #function paper(x = move)(y = message)
@@ -41,28 +40,34 @@ def scissor(x,y):        #function scissors(x = move)(y = message)
 
        return result
 
+def client_send():            #Apa yang kita nak send kat client lagi satu
+    while True:
+        move = input("Move:")
+        client.send(str.encode(move))
+        return move
+        
 def client_receive():            #Receive dari client lagi satu
     while True:
         try:
             message = client.recv(1024).decode('utf-8')
             print(message)
 
+            move = client_send()             #call input dari client_send
+            print(move)
+
+            if(move == 'Rocks'):             #call function untuk hantar data kat function diorang untuk process result
+                result = rocks(move,message) #tapi tak pasti call function ni letak kat mana sepatutnya
+                print(result)
+            elif(move == 'Paper'):
+                result = paper(move,message) 
+                print(result)
+            elif(move == 'Scissor'):
+                result = scissor(move,message)
+                print(result)
+            else:
+                print("Invalid Move")
+
         except:
             print('Error!')
             client.close()
-            break
-
-def client_send():            #Apa yang kita nak send kat client lagi satu
-    while True:
-        move = input("Move:")
-        client.send(move.encode('utf-8'))
-        
-        message = client_receive()
-        print(message)
-
-        if(move == 'Rocks'):             #call function untuk hantar data kat function diorang untuk process result
-            result = rocks(move,message) #tapi tak pasti call function ni letak kat mana sepatutnya
-            print(result)
-        else:
-            print("Invalid")
-
+            break 
