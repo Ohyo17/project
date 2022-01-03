@@ -1,7 +1,5 @@
 import threading
 import socket
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('192.168.56.103', 8888))
 
 def rocks(x,y):           #function Rocks(x = move)(y = message)
 
@@ -40,19 +38,14 @@ def scissor(x,y):        #function scissors(x = move)(y = message)
 
        return result
 
-def client_send():            #Apa yang kita nak send kat client lagi satu
-    while True:
-        move = input("Move:")
-        client.send(str.encode(move))
-        return move
-        
+
 def client_receive():            #Receive dari client lagi satu
     while True:
         try:
-            message = client.recv(1024).decode('utf-8')
+            message = s.recv(1024).decode('utf-8')
             print(message)
 
-            move = client_send()             #call input dari client_send
+            move = Main()             #call input dari main
             print(move)
 
             if(move == 'Rocks'):             #call function untuk hantar data kat function diorang untuk process result
@@ -69,5 +62,31 @@ def client_receive():            #Receive dari client lagi satu
 
         except:
             print('Error!')
-            client.close()
+            s.close()
             break 
+
+def Main():
+    host = '192.168.56.103'
+    port = 8888
+
+    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+    print('Waiting for connection')
+
+    try:
+       s.connect((host, port))
+    except socket.error as e:
+       print(str(e))
+
+    while True:
+        move = input("Move:")           #Input Rocks, Paper atau Scissors
+        s.send(move.encode('utf-8'))
+        return move
+    s.close()
+
+if __name__ == '__main__':
+    Main()
+
+T1 = Thread(target=client_receive)
+T2 = Thread(target=Main)
+T1.start()
+T2.start()
