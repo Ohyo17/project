@@ -86,7 +86,7 @@ def Main():
 if __name__ == '__main__':
     Main()
 
-T1 = Thread(target=client_receive)
-T2 = Thread(target=Main)
+T1 = threading.Thread(target=client_receive)
+T2 = threading.Thread(target=Main)
 T1.start()
 T2.start()
