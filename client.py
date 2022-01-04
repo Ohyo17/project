@@ -1,6 +1,16 @@
 import threading
 import socket
 
+host = "192.168.56.103"
+port = 8888
+s = socket.socket()
+print('Waiting for connection')
+
+try:
+    s.connect((host, port))
+except socket.error as e:
+    print(str(e))
+
 def rocks(x,y):           #function Rocks(x = move)(y = message)
 
     if(x == y):
@@ -66,16 +76,6 @@ def client_receive():            #Receive dari client lagi satu
             break 
 
 def Main():
-    host = '192.168.56.103'
-    port = 8888
-
-    s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-    print('Waiting for connection')
-
-    try:
-       s.connect((host, port))
-    except socket.error as e:
-       print(str(e))
 
     while True:
         move = input("Move:")           #Input Rocks, Paper atau Scissors
