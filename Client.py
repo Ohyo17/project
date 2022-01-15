@@ -4,77 +4,136 @@ PORT = 8889
 
 print("Welcome to Speed ROCK, PAPER, SCISSOR\n")
 
-def rocks(x,y):
+win = 0
+loss = 0
 
+def rocks(x,y):
+      global win,loss
       move = x
       opponent = y
 
       if move == opponent:
               print( "It's Tie\n")
-      elif move == 'rocks' and opponent == 'scissors':
+              win = win + 1
+              loss = loss + 1
+
+              print("Player:",win)
+              print("Opponent:",loss,"\n")
+
+      elif move == 'r' and opponent == 's':
               print("You win\n")
-      elif move == 'rocks' and opponent == 'paper':
+              win = win+ 1
+
+              print("Player:" , win)
+              print("Opponent:", loss,"\n")
+
+      elif move == 'r' and opponent == 'p':
               print("You lose\n")
+              loss = loss + 1
+
+              print("Opponent:",loss)
+              print("Player:",win,"\n")
+
       else:
               print("Invalid move Rocks\n")
 
 def paper(x,y):
-
+      global win,loss
       move = x
       opponent = y
 
       if move == opponent:
                print("It's a Tie\n")
-      elif move == 'paper' and opponent == 'scissors':
+               win = win + 1
+               loss = loss + 1
+
+               print("Player:",win)
+               print("Opponent:",loss,"\n")
+
+      elif move == 'p' and opponent == 's':
                print("You lose\n")
-      elif move == 'paper' and opponent == 'rocks':
+               loss = loss+ 1
+
+               print("Player:" , win)
+               print("Opponent:", loss,"\n")
+      elif move == 'p' and opponent == 'r':
                print("You win\n")
+               win = win + 1
+
+               print("Opponent:",loss)
+               print("Player:",win,"\n")
       else:
            print("Invalid move Paper\n")
 
 def scissor(x,y):
-
+      global win,loss
       move = x
       opponent = y
 
       if move == opponent:
                print("It's a Tie\n")
-      elif move == 'scissors' and opponent == 'paper':
+               win = win + 1
+               loss = loss + 1
+
+               print("Player:",win)
+               print("Opponent:",loss,"\n")
+
+      elif move == 's' and opponent == 'p':
                print("You win\n")
-      elif move == 'scissors' and opponent == 'rocks':
+
+               win = win+ 1
+
+               print("Player:" , win)
+               print("Opponent:", loss,"\n")
+
+      elif move == 's' and opponent == 'r':
                print("You lose\n")
+               loss = loss + 1
+
+               print("Opponent:",loss)
+               print("Player:",win,"\n")
       else:
                print("Invalid move Scissors")
 
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
+        
         while True:
-               move = input('rocks, paper,scissors or exit : ')
-               s.sendall(str.encode(move))
-               
                data = b""
                while data != b"\n":
                      data = s.recv(1024)
-
+               print("Please choose 'r' for Rocks, 'p' for Paper, 's' for Scissor or Exit to close the program\n")
+               move = input("r,p,s: ")
+               s.sendall(str.encode(move))
                data = b""
                while not data:
                      data = s.recv(1024)
+
                opponent = data.decode('utf-8')
                
-               print("Received:", opponent)
+               print("Received: ", opponent)
 
-               if move == "rocks":
+               if move == "r":
                        rocks(move,opponent)
 
-               elif move == 'paper':
+               elif move == 'p':
                        paper(move,opponent)
 
-               elif move == 'scissors':
+               elif move == 's':
                        scissor(move,opponent)
 
                elif move == 'exit' or move == "Exit":
-                       print("Thank you for playing Speed Rocks,Paper,Scissor\n")
+                       if(win>loss):
+                                  print('You are the winner')
+                                  print("Thank you for playing Speed Rocks,Paper,Scissor\n")
+                                  s.close()
+                       elif(win == loss):
+                                  print("It's Deuce")
+                                  s.close()
+                       else:
+                                  print("You lose")
+                                  s.close()
                        break
                else:
                    print("Invalid Move")
