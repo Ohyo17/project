@@ -130,9 +130,11 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                                   s.close()
                        elif(win == loss):
                                   print("It's Deuce")
+                                  print("Thank you for playing Speed Rocks,Paper,Scissor\n")
                                   s.close()
                        else:
                                   print("You lose")
+                                  print("Thank you for playing Speed Rocks,Paper,Scissor\n")
                                   s.close()
                        break
                else:
