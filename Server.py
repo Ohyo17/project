@@ -17,8 +17,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s :
                               print("Connected to", addr2)
                               while True:
                                     try:
-                                        #conn1.sendall(b"\n")
-                                        #conn2.sendall(b"\n")
+                                        conn1.sendall(b"\n")
+                                        conn2.sendall(b"\n")
                                         data = b""
                                         while not data:
                                                  data = conn1.recv(1024)
