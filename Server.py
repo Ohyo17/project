@@ -8,6 +8,7 @@ PORT = 8889
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s :
                 s.bind((HOST, PORT))
+                print("Waiting for connection")
                 s.listen()
                 conn1, addr1 = s.accept()
                 with conn1:
@@ -19,14 +20,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s :
                                     try:
                                         conn1.sendall(b"\n")
                                         conn2.sendall(b"\n")
-                                        data = b""
-                                        while not data:
-                                                 data = conn1.recv(1024)
+                                        
+                                        data = conn1.recv(1024)
                                         conn2.sendall(data)
-                                        data = b""
-                                        while not data:
-                                                    data = conn2.recv(1024)
+                                        
+                                        data = conn2.recv(1024)
                                         conn1.sendall(data)
+
                                     except:
                                            conn1.close()
                                            conn2.close()
