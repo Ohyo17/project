@@ -93,7 +93,7 @@ def scissor(x,y):
                print("You lose\n")
                loss = loss + 1
 
-               print("Player:",win,"Opponent:",loss,"\n")
+               print("Player:",win,"\tOpponent:",loss,"\n")
       else:
                print("Invalid move Scissors")
 
