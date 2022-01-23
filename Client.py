@@ -3,7 +3,12 @@ import sys
 HOST = "192.168.56.103"
 PORT = 8888
 
-print("Welcome to Speed ROCK, PAPER, SCISSOR\n")
+print("---------Welcome to Speed ROCK, PAPER, SCISSOR---------------")
+print("Enter [r] for Rocks")
+print("Enter [p] for Paper")
+print("Enter [s] for Scissors")
+print("Enter [exit] to end the program")
+print("Waiting for another player\n")
 
 win = 0
 loss = 0
@@ -23,7 +28,7 @@ def rocks(x,y):
       elif move == 'r' and opponent == 's':
 
               print("You win\n")
-              win = win+ 1
+              win = win + 1
               print("Player:" ,win, "\tOpponent:", loss,"\n")
 
       elif move == 'r' and opponent == 'p':
@@ -51,7 +56,7 @@ def paper(x,y):
       elif move == 'p' and opponent == 's':
 
                print("You lose\n")
-               loss = loss+ 1
+               loss = loss + 1
                print("Player:" , win,"\tOpponent:", loss,"\n")
 
       elif move == 'p' and opponent == 'r':
@@ -79,7 +84,7 @@ def scissor(x,y):
       elif move == 's' and opponent == 'p':
 
                print("You win\n")
-               win = win+ 1
+               win = win + 1
                print("Player:" , win,"\tOpponent:", loss,"\n")
 
       elif move == 's' and opponent == 'r':
@@ -119,9 +124,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                data = b""
                while data != b"\n":
                      data = s.recv(1024)
-               print("Please choose 'r' for Rocks, 'p' for Paper, 's' for Scissor or exit to close the program\n")
-               move = input("r,p,s: ")
+
+               move = input("r ,p ,s: ")
                s.sendall(str.encode(move))
+               print("Waiting for opponent move\n")
 
                data = b""
                while not data:
