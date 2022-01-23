@@ -4,11 +4,11 @@ HOST = "192.168.56.103"
 PORT = 8888
 
 print("---------Welcome to Speed ROCK, PAPER, SCISSOR---------------")
+print("-----There is no limit when playing this game----")
 print("Enter [r] for Rocks")
 print("Enter [p] for Paper")
 print("Enter [s] for Scissors")
 print("Enter [exit] to end the program")
-print("-------You also can enter a message to chat with another player-------")
 print("Waiting for another player\n")
 
 win = 0
@@ -147,7 +147,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                elif move == 's':
                        scissor(move,opponent)
 
-               elif move == 'exit':
+               elif move == 'exit' or opponent == 'exit':
                        score()
                        break
                        sys.exit()
