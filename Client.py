@@ -20,7 +20,7 @@ def rocks(x,y):
 
       if move == opponent:
 
-              print( "It's Tie\n")
+              print("It's Tie\n")
               win = win + 1
               loss = loss + 1
               print("Player:",win,"\tOpponent:",loss,"\n")
