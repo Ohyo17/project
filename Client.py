@@ -8,6 +8,7 @@ print("Enter [r] for Rocks")
 print("Enter [p] for Paper")
 print("Enter [s] for Scissors")
 print("Enter [exit] to end the program")
+print("-------You also can enter a message to chat with another player-------")
 print("Waiting for another player\n")
 
 win = 0
