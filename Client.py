@@ -9,6 +9,7 @@ print("Enter [r] for Rocks")
 print("Enter [p] for Paper")
 print("Enter [s] for Scissors")
 print("Enter [exit] to end the program")
+print("The program also will be end if opponent enter [exit]")
 print("Waiting for another player\n")
 
 win = 0
