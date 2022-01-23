@@ -1,7 +1,7 @@
 import socket
 import sys
 HOST = "192.168.56.103"
-PORT = 8889
+PORT = 8888
 
 print("---------Welcome to Speed ROCK, PAPER, SCISSOR---------------")
 print("-----There is no limit when playing this game----")
@@ -138,6 +138,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
                opponent = data.decode('utf-8')
                
                print("Received:", opponent)
+               if move == 'exit' or opponent == 'exit':
+                       score()
+                       break
+                       sys.exit()
 
                if move == 'r':
                        rocks(move,opponent)
@@ -147,16 +151,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
                elif move == 's':
                        scissor(move,opponent)
-
-               elif move == 'exit':
-                       score()
-                       break
-                       sys.exit()
-
-               elif opponent == 'exit':
-                       score()
-                       break
-                       sys.exit()
 
                else:
                    print("Invalid Move or words\n")
